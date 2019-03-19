@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import { SingleWorkout } from './SingleWorkout';
 
 import './ListWorkouts.css'
-export const ListWorkouts = props => {
+export const DisconnectedListWorkouts = props => {
   const { workouts } = props
+
   return (
     <div id="workouts">
       {workouts.map(workout => (
@@ -13,3 +15,9 @@ export const ListWorkouts = props => {
     </div>
   )
 }
+
+const mapStateToProps = state => ({
+  workouts: state.workouts
+})
+
+export const ListWorkouts = connect(mapStateToProps)(DisconnectedListWorkouts)

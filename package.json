@@ -6,6 +6,7 @@
   "scripts": {
     "serve": "node ./server",
     "serve:dev": "nodemon ./server",
+    "reseed": "node ./server/seed",
     "webpack": "webpack",
     "webpack:dev": "npm run webpack -- --mode=development --watch",
     "start:dev": "npm run webpack:dev & npm run serve:dev"
@@ -20,6 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-react": "^6.24.1",
@@ -32,6 +34,9 @@
     "pg": "^7.8.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
     "sequelize": "^4.43.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
