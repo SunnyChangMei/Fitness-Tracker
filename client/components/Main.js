@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { createFetchWorkoutsThunk } from '../store'
+import { buildFetchWorkoutsThunk } from '../store'
 
 import { Analytics } from './Analytics'
 import { ListWorkouts } from './ListWorkouts'
@@ -23,7 +23,7 @@ export class DisconnectedMain extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchWorkouts: () => dispatch(createFetchWorkoutsThunk())
+  fetchWorkouts: () => dispatch(buildFetchWorkoutsThunk())
 })
 
 export const Main = connect(null, mapDispatchToProps)(DisconnectedMain)

@@ -1,3 +1,4 @@
+/* App wide resets can go here */
 * {
   box-sizing: border-box;
   font-family: "Roboto", Helvetica, "Lucida Grande", sans-serif;
@@ -13,6 +14,7 @@ body {
   background-color: #9EE4AE;
 }
 
+/* Things used across multiple children of App can go here */
 .box {
   border-radius: 5px;
   overflow: hidden;
@@ -35,44 +37,10 @@ body {
   margin: 0;
 }
 
-.edit-workout {
-  margin-left: 25px;
-  margin-right: 2px;
-}
-
 .box-content {
   padding: 0px 10px 0px 10px;
 }
 
-#workouts {
-  margin-left: 5px;
-  flex: 2;
-}
-
-.exercise-name {
-  display: flex;
-  justify-content: space-between;
-}
-
-.exercise-list li {
-  margin-bottom: 15px;
-}
-
-.exercise-list h3 {
-  margin: 0px;
-  text-decoration: underline;
-}
-
-.analytics-table {
-  width: 100%;
-}
-
-.analytics-table-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 15px 0px 15px 0px;
-}
-
-.analytics-name {
-  text-decoration: underline;
+.actions i {
+  cursor: pointer;
 }

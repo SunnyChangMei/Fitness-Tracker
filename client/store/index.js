@@ -14,7 +14,7 @@ const setWorkoutsActionCreator = workouts => ({
   workouts
 })
 
-export const createFetchWorkoutsThunk = () => {
+export const buildFetchWorkoutsThunk = () => {
   return async dispatch => {
     try {
       const { data } = await axios.get('/workouts')
@@ -32,7 +32,7 @@ const removeExerciseActionCreator = id => ({
   id
 })
 
-export const createDeleteExerciseThunk = (id) => {
+export const buildDeleteExerciseThunk = (id) => {
   return async dispatch => {
     try {
       await axios.delete(`/exercises/${id}`)
@@ -51,7 +51,7 @@ const updateExerciseCompletionActionCreator = (id, completed) => ({
   completed
 })
 
-export const createSetExerciseCompletionThunk = (id, completed) => {
+export const buildUpdateExerciseCompletionThunk = (id, completed) => {
   return async dispatch => {
     try {
       await axios.patch(`/exercises/${id}`, { updatedFields: { completed } })

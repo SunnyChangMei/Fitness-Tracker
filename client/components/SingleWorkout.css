@@ -1,0 +1,13 @@
+.exercise-list li {
+  margin-bottom: 15px;
+}
+
+.exercise-list h3 {
+  margin: 0px;
+  text-decoration: underline;
+}
+
+.edit-workout {
+  margin-left: 25px;
+  margin-right: 2px;
+}
