@@ -1,24 +1,29 @@
 import React, { Fragment } from 'react'
+import { connect } from 'react-redux'
 
-/**
-  Check out this video demo: https://youtu.be/19uPqaQVhLc
-  Notice how the manual DOM manipulating JS outside of React conflicts with
-  React.
- */
+import { createDeleteExerciseThunk } from '../store'
 
-export const SingleExercise = props => {
+import './SingleExercise.css'
+export const DisconnectedSingleExercise = props => {
   const { id, name, duration, completed, description } = props.exercise
+  const { deleteExercise } = props
+
   return (
     <Fragment>
       <div className="exercise-name">
-        <i
-          id={`exercise-${id}`}
-          className={
-            completed
-              ? 'toggle-complete fas fa-check-circle'
-              : 'toggle-complete far fa-circle'
-          }
-        />
+        <span className="actions">
+          <i
+            id={`exercise-${id}`}
+            className={
+              completed
+                ? 'toggle-complete fas fa-check-circle'
+                : 'toggle-complete far fa-circle'
+            }
+          />
+          <i 
+            className="fas fa-trash"
+            onClick={() => deleteExercise(id) }></i>
+        </span>
         <h3>{name}</h3>
         <span>{duration} min</span>
       </div>
@@ -26,3 +31,9 @@ export const SingleExercise = props => {
     </Fragment>
   )
 }
+
+const mapDispatchToProps = dispatch => ({
+  deleteExercise: (id) => dispatch(createDeleteExerciseThunk(id))
+})
+
+export const SingleExercise = connect(null, mapDispatchToProps)(DisconnectedSingleExercise)
