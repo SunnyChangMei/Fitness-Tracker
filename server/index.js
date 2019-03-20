@@ -19,8 +19,8 @@ app.use(bodyParser.json())
 /* Mount the workout and exercise routes. For instance, when a request begins with
    /workouts, we'll hand it off to the router defined in ./routes/workouts.js
   */
-app.use('/workouts', workoutRoutes)
-app.use('/exercises', exerciseRoutes)
+app.use('/api/workouts', workoutRoutes)
+app.use('/api/exercises', exerciseRoutes)
 
 // Serve the index.html file in ./public as a homepage
 app.use(express.static(path.join(__dirname, 'public')))

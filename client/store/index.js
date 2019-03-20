@@ -17,7 +17,7 @@ const setWorkoutsActionCreator = workouts => ({
 export const buildFetchWorkoutsThunk = () => {
   return async dispatch => {
     try {
-      const { data } = await axios.get('/workouts')
+      const { data } = await axios.get('/api/workouts')
       dispatch(setWorkoutsActionCreator(data))
     } catch (err) {
        console.log('ERROR fetching workouts', err)
@@ -35,7 +35,7 @@ const removeExerciseActionCreator = id => ({
 export const buildDeleteExerciseThunk = (id) => {
   return async dispatch => {
     try {
-      await axios.delete(`/exercises/${id}`)
+      await axios.delete(`/api/exercises/${id}`)
       dispatch(removeExerciseActionCreator(id))
     } catch (err) {
       console.log(`ERROR deleting exercise with id ${id}`, err)
@@ -54,7 +54,7 @@ const updateExerciseCompletionActionCreator = (id, completed) => ({
 export const buildUpdateExerciseCompletionThunk = (id, completed) => {
   return async dispatch => {
     try {
-      await axios.patch(`/exercises/${id}`, { updatedFields: { completed } })
+      await axios.patch(`/api/exercises/${id}`, { updatedFields: { completed } })
       dispatch(updateExerciseCompletionActionCreator(id, completed))
     } catch (err) {
       console.log(`ERROR setting completion to ${completion} on exercise with id ${id}`, err)
@@ -101,11 +101,11 @@ const reducer = (state = initialState, action) => {
         } else { // just leave it alone
           return workout
         }
-      })   
+      })
 
       return {
         workouts: nextWorkouts
-      }    
+      }
     }
     default: {
       return state
