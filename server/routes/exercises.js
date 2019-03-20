@@ -25,9 +25,9 @@ router.get('/:id', async (req, res, next) => {
 // POST a new exercise
 router.post('/', async (req, res, next) => {
   try {
-    const { name, completed, description } = req.body
+    const { name, completed, description, duration } = req.body
     res.status(201)
-    res.json(await Exercise.create({ name, completed, description }))
+    res.json(await Exercise.create({ name, completed, description, duration }))
   } catch (err) {
     next(err)
   }
