@@ -33,6 +33,19 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// PATCH an existing exercise
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const { updatedFields } = req.body
+    
+    Exercise.update({ ...updatedFields }, { where: { id } })
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // DELETE an exercise by id
 router.delete('/:id', async (req, res, next) => {
   try {

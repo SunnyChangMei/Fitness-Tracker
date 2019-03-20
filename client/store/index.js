@@ -19,8 +19,8 @@ export const createFetchWorkoutsThunk = () => {
     try {
       const { data } = await axios.get('/workouts')
       dispatch(setWorkoutsActionCreator(data))
-    } catch (e) {
-       console.log('ERROR fetching workouts', e)
+    } catch (err) {
+       console.log('ERROR fetching workouts', err)
     }
   }
 }
@@ -35,10 +35,29 @@ const removeExerciseActionCreator = id => ({
 export const createDeleteExerciseThunk = (id) => {
   return async dispatch => {
     try {
-      const { data } = await axios.delete(`/exercises/${id}`)
+      await axios.delete(`/exercises/${id}`)
       dispatch(removeExerciseActionCreator(id))
-    } catch (e) {
-      console.log(`ERROR deleting exercise with id ${id}`, e)
+    } catch (err) {
+      console.log(`ERROR deleting exercise with id ${id}`, err)
+    }
+  }
+}
+
+const UPDATE_EXERCISE_COMPLETION = "UPDATE_EXERCISE_COMPLETION"
+
+const updateExerciseCompletionActionCreator = (id, completed) => ({
+  type: UPDATE_EXERCISE_COMPLETION,
+  id,
+  completed
+})
+
+export const createSetExerciseCompletionThunk = (id, completed) => {
+  return async dispatch => {
+    try {
+      await axios.patch(`/exercises/${id}`, { updatedFields: { completed } })
+      dispatch(updateExerciseCompletionActionCreator(id, completed))
+    } catch (err) {
+      console.log(`ERROR setting completion to ${completion} on exercise with id ${id}`, err)
     }
   }
 }
@@ -65,6 +84,28 @@ const reducer = (state = initialState, action) => {
       return {
         workouts: nextWorkouts
       }
+    }
+    case (UPDATE_EXERCISE_COMPLETION): {
+      const nextWorkouts = state.workouts.map(workout => {
+        if (workout.exercises.find(exercise => exercise.id === action.id)) {
+          return { // gotta update the completion status of that one exercise
+            ...workout,
+            exercises: workout.exercises.map(exercise => {
+              if (exercise.id === action.id) {
+                return { ...exercise, completed: action.completed }
+              } else {
+                return exercise
+              }
+            })
+          }
+        } else { // just leave it alone
+          return workout
+        }
+      })   
+
+      return {
+        workouts: nextWorkouts
+      }    
     }
     default: {
       return state
