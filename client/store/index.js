@@ -57,7 +57,7 @@ export const buildUpdateExerciseCompletionThunk = (id, completed) => {
       await axios.patch(`/api/exercises/${id}`, { updatedFields: { completed } })
       dispatch(updateExerciseCompletionActionCreator(id, completed))
     } catch (err) {
-      console.log(`ERROR setting completion to ${completion} on exercise with id ${id}`, err)
+      console.log(`ERROR setting completion to ${completed} on exercise with id ${id}`, err)
     }
   }
 }
