@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 import axios from 'axios'
 
@@ -8,11 +9,11 @@ export const initialState = {
   workouts: [],
 }
 
-const SET_WORKOUTS = "SET_WORKOUTS"
+const SET_WORKOUTS = 'SET_WORKOUTS'
 
 const setWorkoutsActionCreator = workouts => ({
   type: SET_WORKOUTS,
-  workouts
+  workouts,
 })
 
 export const buildFetchWorkoutsThunk = () => {
@@ -21,19 +22,19 @@ export const buildFetchWorkoutsThunk = () => {
       const { data } = await axios.get('/api/workouts')
       dispatch(setWorkoutsActionCreator(data))
     } catch (err) {
-       console.log('ERROR fetching workouts', err)
+      console.log('ERROR fetching workouts', err)
     }
   }
 }
 
-const REMOVE_EXERCISE = "REMOVE_EXERCISE"
+const REMOVE_EXERCISE = 'REMOVE_EXERCISE'
 
 const removeExerciseActionCreator = id => ({
   type: REMOVE_EXERCISE,
-  id
+  id,
 })
 
-export const buildDeleteExerciseThunk = (id) => {
+export const buildDeleteExerciseThunk = id => {
   return async dispatch => {
     try {
       await axios.delete(`/api/exercises/${id}`)
@@ -44,52 +45,62 @@ export const buildDeleteExerciseThunk = (id) => {
   }
 }
 
-const UPDATE_EXERCISE_COMPLETION = "UPDATE_EXERCISE_COMPLETION"
+const UPDATE_EXERCISE_COMPLETION = 'UPDATE_EXERCISE_COMPLETION'
 
 const updateExerciseCompletionActionCreator = (id, completed) => ({
   type: UPDATE_EXERCISE_COMPLETION,
   id,
-  completed
+  completed,
 })
 
 export const buildUpdateExerciseCompletionThunk = (id, completed) => {
   return async dispatch => {
     try {
-      await axios.patch(`/api/exercises/${id}`, { updatedFields: { completed } })
+      await axios.patch(`/api/exercises/${id}`, {
+        updatedFields: { completed },
+      })
       dispatch(updateExerciseCompletionActionCreator(id, completed))
     } catch (err) {
-      console.log(`ERROR setting completion to ${completed} on exercise with id ${id}`, err)
+      console.log(
+        `ERROR setting completion to ${completed} on exercise with id ${id}`,
+        err
+      )
     }
   }
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case (SET_WORKOUTS): {
+    case SET_WORKOUTS: {
       return {
-        workouts: [...action.workouts]
+        workouts: [...action.workouts],
       }
     }
-    case (REMOVE_EXERCISE): {
+    case REMOVE_EXERCISE: {
       const nextWorkouts = state.workouts.map(workout => {
         if (workout.exercises.find(exercise => exercise.id === action.id)) {
-          return { // gotta remove that exercise from the exercises in this workout
+          return {
+            // gotta remove that exercise from the exercises in this workout
             ...workout,
-            exercises: workout.exercises.filter(exercise => exercise.id !== action.id)
+            exercises: workout.exercises.filter(
+              exercise => exercise.id !== action.id
+            ),
           }
-        } else { // just leave it alone
+        } else {
+          // just leave it alone
           return workout
         }
       })
 
       return {
-        workouts: nextWorkouts
+        workouts: nextWorkouts,
       }
     }
-    case (UPDATE_EXERCISE_COMPLETION): {
+    case UPDATE_EXERCISE_COMPLETION: {
       const nextWorkouts = state.workouts.map(workout => {
         if (workout.exercises.find(exercise => exercise.id === action.id)) {
-          return { // gotta update the completion status of that one exercise
+          return {
+            // gotta update the completion status of that one exercise
             ...workout,
             exercises: workout.exercises.map(exercise => {
               if (exercise.id === action.id) {
@@ -97,15 +108,16 @@ const reducer = (state = initialState, action) => {
               } else {
                 return exercise
               }
-            })
+            }),
           }
-        } else { // just leave it alone
+        } else {
+          // just leave it alone
           return workout
         }
       })
 
       return {
-        workouts: nextWorkouts
+        workouts: nextWorkouts,
       }
     }
     default: {
@@ -116,5 +128,7 @@ const reducer = (state = initialState, action) => {
 
 export const store = createStore(
   reducer,
-  applyMiddleware(thunk, createLogger({ collapsed: true }))
+  composeWithDevTools(
+    applyMiddleware(thunk, createLogger({ collapsed: true }))
+  )
 )
