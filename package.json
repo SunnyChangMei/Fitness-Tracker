@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "serve": "node ./server",
-    "serve:dev": "nodemon ./server",
-    "reseed": "node ./server/seed",
+    "serve-dev": "nodemon ./server",
+    "seed": "node ./server/seed",
     "webpack": "webpack",
-    "webpack:dev": "npm run webpack -- --mode=development --watch",
-    "start:dev": "npm run webpack:dev & npm run serve:dev"
+    "webpack-dev": "npm run webpack -- --mode=development --watch",
+    "start-dev": "npm run webpack-dev & npm run serve-dev"
   },
   "babel": {
     "presets": [
