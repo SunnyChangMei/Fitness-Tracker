@@ -53,7 +53,7 @@ async function seed() {
   try {
     console.log('Seeding the database...')
     await db.sync({ force: true })
-    // 👇 Write some code below this line 👇
+
     await Workout.create(seedWorkouts[0], {
       include: [ Exercise ]
     })
@@ -61,7 +61,7 @@ async function seed() {
     await Workout.create(seedWorkouts[1], {
       include: [ Exercise ]
     })
-    // ☝️️️ Write some code above this line ☝️️
+
     await db.close()
     console.log('Database was successfully seeded!')
   } catch (err) {
