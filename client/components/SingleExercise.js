@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 
-import { buildDeleteExerciseThunk, buildUpdateExerciseCompletionThunk } from '../store'
+import {
+  buildDeleteExerciseThunk,
+  buildUpdateExerciseCompletionThunk,
+} from '../store'
 
 import './SingleExercise.css'
 export const DisconnectedSingleExercise = props => {
@@ -19,11 +22,9 @@ export const DisconnectedSingleExercise = props => {
                 ? 'toggle-complete fas fa-check-circle'
                 : 'toggle-complete far fa-circle'
             }
-            onClick={() => updateExerciseCompletion(id, !completed) }
+            onClick={() => updateExerciseCompletion(id, !completed)}
           />
-          <i
-            className="fas fa-trash"
-            onClick={() => deleteExercise(id) } />
+          <i className="fas fa-trash" onClick={() => deleteExercise(id)} />
         </span>
         <h3>{name}</h3>
         <span>{duration} min</span>
@@ -34,8 +35,12 @@ export const DisconnectedSingleExercise = props => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  deleteExercise: (id) => dispatch(buildDeleteExerciseThunk(id)),
-  updateExerciseCompletion: (id, completed) => dispatch(buildUpdateExerciseCompletionThunk(id, completed))
+  deleteExercise: id => dispatch(buildDeleteExerciseThunk(id)),
+  updateExerciseCompletion: (id, completed) =>
+    dispatch(buildUpdateExerciseCompletionThunk(id, completed)),
 })
 
-export const SingleExercise = connect(null, mapDispatchToProps)(DisconnectedSingleExercise)
+export const SingleExercise = connect(
+  null,
+  mapDispatchToProps
+)(DisconnectedSingleExercise)
