@@ -24,7 +24,7 @@ export const DisconnectedSingleExercise = props => {
             }
             onClick={() => updateExerciseCompletion(id, !completed)}
           />
-          <i className="fas fa-trash" onClick={() => deleteExercise(id)} />
+          <i className="fas fa-trash delete" onClick={() => deleteExercise(id)} />
         </span>
         <h3>{name}</h3>
         <span>{duration} min</span>

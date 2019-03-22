@@ -1,4 +1,4 @@
-.actions :not(:first-child) {
+.delete {
   margin-left: 6px;
 }
 
