@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "node ./server",
-    "serve-dev": "nodemon ./server",
+    "serve-dev": "nodemon --watch server --ignore server/public ./server",
     "seed": "node ./server/seed",
     "webpack": "webpack",
     "webpack-dev": "npm run webpack -- --mode=development --watch",
