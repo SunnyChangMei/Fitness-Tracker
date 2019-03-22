@@ -12,11 +12,13 @@ export const SingleWorkout = props => {
       </div>
       <div className="box-content">
         <ul className="exercise-list">
-          {exercises.map(exercise => (
-            <li key={exercise.id}>
-              <SingleExercise exercise={exercise} />
-            </li>
-          ))}
+          {exercises && exercises.length
+            ? exercises.map(exercise => (
+              <li key={exercise.id}>
+                <SingleExercise exercise={exercise} />
+              </li>
+            ))
+            : 'no exercises'}
         </ul>
       </div>
     </div>
