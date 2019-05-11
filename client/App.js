@@ -1,28 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react';
+import { Provider } from 'react-redux';
 
-import {
-  Header,
-  Main,
-} from './components'
+import { Header, Main } from './components';
 
-import { initialState } from './initialState'
+import { store } from './store';
 
-import './App.css'
-export class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = initialState
-  }
-
-  render() {
-    const { workouts } = this.state
-
-    return (
-      <div className="App">
-        <Header />
-        <Main workouts={ workouts } />
-      </div>
-    )
-  }
-}
+import './App.css';
+export const App = () => (
+  <Provider store={store}>
+    <div className="App">
+      <Header />
+      <Main />
+    </div>
+  </Provider>
+);
