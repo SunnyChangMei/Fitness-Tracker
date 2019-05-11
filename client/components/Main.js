@@ -12,7 +12,6 @@ export class DisconnectedMain extends React.Component {
   componentDidMount() {
     this.props.fetchWorkouts();
   }
-  // const { workouts } = props;
 
   render() {
     return (

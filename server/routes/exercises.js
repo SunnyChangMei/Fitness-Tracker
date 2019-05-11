@@ -33,6 +33,32 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// PATCH an existing exercise
+router.patch('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updatedFields = req.body;
+    const exercise = await Exercise.findByPk(id);
+    // if (!exercise) return res.sendStatus(404);
+    exercise.update(updatedFields);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+/** PATCH an existing exercise
+router.patch('/:id', (req, res, next) => {
+  try {
+    const { id } = req.params
+    const { updatedFields } = req.body
+
+    Exercise.update({ ...updatedFields }, { where: { id } })
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+}) */
+
 // DELETE an exercise by id
 router.delete('/:id', async (req, res, next) => {
   try {
