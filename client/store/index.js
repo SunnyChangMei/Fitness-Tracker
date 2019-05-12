@@ -102,7 +102,6 @@ const reducer = (state = initialState, action) => {
       const nextWorkouts = state.workouts.map(workout => {
         if (workout.exercises.find(exercise => exercise.id === action.id)) {
           return {
-            // gotta update the completion status of that one exercise
             ...workout,
             exercises: workout.exercises.map(exercise => {
               if (exercise.id === action.id) {
@@ -113,7 +112,6 @@ const reducer = (state = initialState, action) => {
             })
           };
         } else {
-          // just leave it alone
           return workout;
         }
       });

@@ -51,7 +51,7 @@ const calculateFavoriteExercise = exercises => {
   const countObj = {};
   let maxCount = 0;
   let currentVictor = null;
-  
+
   exercises.forEach(exercise => {
     countObj[exercise.name] = countObj[exercise.name]
       ? countObj[exercise.name] + 1
